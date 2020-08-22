@@ -1,0 +1,26 @@
+@startuml
+title 警察抓小偷问题
+start
+:初始化;
+fork
+    :申请互斥锁mutex1;
+    if(policePos - thiefPos < 3) then
+        :policePos++;
+    endif
+    :释放互斥锁;
+fork again
+    :申请互斥锁;
+    if(thiefPos - policePos < 3) then
+        :thiefPos++;
+    endif
+    :释放互斥锁mutex1;
+fork again
+    :清除原来绘制的内容;
+    :申请互斥锁;
+    :获取警察和小偷位置;
+    :释放互斥锁;
+    :绘制警察和小偷位置;
+    :刷新;
+end fork
+end
+@enduml
